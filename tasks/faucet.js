@@ -1,7 +1,6 @@
 const fs = require("fs");
 
-// This file is only here to make interacting with the Dapp easier,
-// feel free to ignore it if you don't need it.
+// 该文件只是为了与Dapp交互更容易,如果不需要它，请忽略.
 
 task("faucet", "Sends ETH and tokens to an address")
   .addPositionalParam("receiver", "The address that will receive them")

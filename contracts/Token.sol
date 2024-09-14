@@ -1,56 +1,53 @@
 //SPDX-License-Identifier: UNLICENSED
 
-// Solidity files have to start with this pragma.
-// It will be used by the Solidity compiler to validate its version.
+// Solidity文件必须从这个语法开始。
+// Solidity编译器将使用它来验证其版本。
 pragma solidity ^0.8.9;
 
-// We import this library to be able to use console.log
+// 导入此库是为了能够使用console.log
 import "hardhat/console.sol";
 
-
-// This is the main building block for smart contracts.
+// 定义一个名为Token的合约
 contract Token {
-    // Some string type variables to identify the token.
+    // 定义token名称
     string public name = "My Hardhat Token";
+
+    // 定义token标识符
     string public symbol = "MHT";
 
-    // The fixed amount of tokens stored in an unsigned integer type variable.
-    uint256 public totalSupply = 1000000;
+    // 定义总供应量，使用无符号整数类型
+    uint256 public totalSupply = 21000000;
 
-    // An address type variable is used to store ethereum accounts.
+    // 地址类型变量用于存储当前合约的拥有者帐户
     address public owner;
 
-    // A mapping is a key/value map. Here we store each account balance.
+    // 帐户地址/余额，存储每个账户的余额
     mapping(address => uint256) balances;
 
-    // The Transfer event helps off-chain aplications understand
-    // what happens within your contract.
+    // Transfer事件，调用该函数进行用户间转帐
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
 
     /**
-     * Contract initialization.
+     * 构造函数
      */
     constructor() {
-        // The totalSupply is assigned to the transaction sender, which is the
-        // account that is deploying the contract.
+        // 初始的“总供应量”被分配给交易方，即部署合约的帐户
         balances[msg.sender] = totalSupply;
         owner = msg.sender;
     }
 
     /**
-     * A function to transfer tokens.
+     * 转帐
      *
-     * The `external` modifier makes a function *only* callable from outside
-     * the contract.
+     * `external`修饰符使函数可从合约外部调用
+     *
      */
     function transfer(address to, uint256 amount) external {
-        // Check if the transaction sender has enough tokens.
-        // If `require`'s first argument evaluates to `false` then the
-        // transaction will revert.
+        //检查交易发送方是否有足够的token
+        //如果`require`的第一个参数计算结果为`false`，将返回错误提示
         require(balances[msg.sender] >= amount, "Not enough tokens");
 
-        // We can print messages and values using console.log, a feature of
-        // Hardhat Network:
+        // 使用console.log打印消息
         console.log(
             "Transferring from %s to %s %s tokens",
             msg.sender,
@@ -58,20 +55,20 @@ contract Token {
             amount
         );
 
-        // Transfer the amount.
+        // 从拥有者帐户扣除对应数量的token
         balances[msg.sender] -= amount;
+        // 给目标帐户加上对应的数量
         balances[to] += amount;
 
-        // Notify off-chain applications of the transfer.
+        // 抛出转帐通知
         emit Transfer(msg.sender, to, amount);
     }
 
     /**
-     * Read only function to retrieve the token balance of a given account.
+     * 只读函数，用于查询指定帐户的token余额
      *
-     * The `view` modifier indicates that it doesn't modify the contract's
-     * state, which allows us to call it without executing a transaction.
-     */
+     * `view`修饰符表示它不会修改合约的
+     **/
     function balanceOf(address account) external view returns (uint256) {
         return balances[account];
     }

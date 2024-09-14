@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A boilerplate repository to get you started with Hardhat and Ethereum development",
   "scripts": {
-    "test": "hardhat test"
+    "MHT:test": "npx hardhat test",
+    "MHT:compile": "npx hardhat compile",
+    "MHT:clean": "npx hardhat clean"
   },
   "repository": {
     "type": "git",

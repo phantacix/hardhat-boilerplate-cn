@@ -1,5 +1,4 @@
-// This is a script for deploying your contracts. You can adapt it to deploy
-// yours, or create new ones.
+// 这是一个用于部署合约的脚本. 你可以调整它以进行你的部署，或者创建一个新的脚本.
 
 const path = require("path");
 

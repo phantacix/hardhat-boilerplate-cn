@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "001 - npm install",
+            "type": "shell",
+            "command": "npm install",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "002 - start node",
+            "type": "shell",
+            "command": "npx hardhat node",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "003 - deploy Token.js",
+            "type": "shell",
+            "command": "npx hardhat ignition deploy ./ignition/modules/Token.js",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+        
+    ]
+}

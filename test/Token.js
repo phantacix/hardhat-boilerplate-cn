@@ -1,35 +1,33 @@
-// This is an example test file. Hardhat will run every *.js file in `test/`,
-// so feel free to add new ones.
+// 这是一个示例测试文件. HardHat将运行`test/`目录所有的*.js文件.
 
-// Hardhat tests are normally written with Mocha and Chai.
+// 请自行添加新的测试用例
 
-// We import Chai to use its asserting functions here.
+// Hardhat测试用例通用使用Mocha和Chai编写.
+
+// 在这里导入Chai用它来断言函数
 const { expect } = require("chai");
 
-// We use `loadFixture` to share common setups (or fixtures) between tests.
-// Using this simplifies your tests and makes them run faster, by taking
-// advantage or Hardhat Network's snapshot functionality.
+// 使用`loadFixture`在测试时共享一些常用的设置
+// 通过利用Hardhat Network的快照功能，可以简化你的测试,并使其运行得更快
 const { loadFixture } = require("@nomicfoundation/hardhat-network-helpers");
 
-// `describe` is a Mocha function that allows you to organize your tests.
-// Having your tests organized makes debugging them easier. All Mocha
-// functions are available in the global scope.
+//`describe`是一个Mocha函数，允许您编写测试用例，使调试更容易。所有Mocha函数在全局范围内可用。
 //
-// `describe` receives the name of a section of your test suite, and a
-// callback. The callback must define the tests of that section. This callback
-// can't be an async function.
+//`describe`接收测试用例中的名称和回调函数。此回调不能是异步函数。
 describe("Token contract", function () {
   // We define a fixture to reuse the same setup in every test. We use
   // loadFixture to run this setup once, snapshot that state, and reset Hardhat
   // Network to that snapshot in every test.
+
+  // 我们定义了一个deployTokenFixture()，以便每次测试时重用相同的设置。
+  // 使用loadFixture运行一次程序，并快照该状态，重置Hardhat在每次测试中都将网络连接到该快照。
+  
   async function deployTokenFixture() {
     // Get the ContractFactory and Signers here.
     const Token = await ethers.getContractFactory("Token");
     const [owner, addr1, addr2] = await ethers.getSigners();
 
-    // To deploy our contract, we just have to call Token.deploy() and await
-    // for it to be deployed(), which happens onces its transaction has been
-    // mined.
+    // 要部署合约只需调用Token.deploy()并等待它被部署
     const hardhatToken = await Token.deploy();
 
     await hardhatToken.deployed();
@@ -42,7 +40,7 @@ describe("Token contract", function () {
   describe("Deployment", function () {
     // `it` is another Mocha function. This is the one you use to define your
     // tests. It receives the test name, and a callback function.
-//
+    //
     // If the callback function is async, Mocha will `await` it.
     it("Should set the right owner", async function () {
       // We use loadFixture to setup our environment, and then assert that
@@ -68,6 +66,7 @@ describe("Token contract", function () {
     it("Should transfer tokens between accounts", async function () {
       const { hardhatToken, owner, addr1, addr2 } = await loadFixture(deployTokenFixture);
       // Transfer 50 tokens from owner to addr1
+      // 从 owner转 50token到addr1帐户
       await expect(hardhatToken.transfer(addr1.address, 50))
         .to.changeTokenBalances(hardhatToken, [owner, addr1], [-50, 50]);
 
