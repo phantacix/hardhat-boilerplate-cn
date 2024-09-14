@@ -75,13 +75,8 @@ npm start
 
 ## 故障排除
 
-- `Invalid nonce` errors: if you are seeing this error on the `npx hardhat node`
-  console, try resetting your Metamask account. This will reset the account's
-  transaction history and also the nonce. Open Metamask, click on your account
-  followed by `Settings > Advanced > Clear activity tab data`.
-
 - `无效随机数`错误：如果您在执行`npx hardhat node`命令时看到控制台的错误，请尝试重置您的Metamask帐户。这将重置帐户的
-交易历史以及随机数。打开Metamask，点击您的帐户然后是`设置>高级>清除活动选项卡数据`。
+交易历史以及随机数。打开`Metamask`，点击您的帐户然后是`设置>高级>清除活动选项卡数据`。
 
 ## 设置编辑器
 
